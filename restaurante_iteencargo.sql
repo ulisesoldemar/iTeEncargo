@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-05-2021 a las 17:35:10
+-- Tiempo de generación: 27-05-2021 a las 19:25:05
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.9
 
@@ -22,6 +22,17 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `restaurante_iteencargo`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `categoria`
+--
+
+CREATE TABLE `categoria` (
+  `idCategoria` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -83,10 +94,10 @@ CREATE TABLE `pedido` (
 CREATE TABLE `platillo` (
   `idPlatillo` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `imagen` blob DEFAULT NULL,
+  `imagen` varchar(100) DEFAULT NULL,
   `precio` float NOT NULL,
   `descripcion` varchar(100) NOT NULL,
-  `tipo` varchar(15) NOT NULL
+  `idCategoria` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -104,6 +115,12 @@ CREATE TABLE `ticket` (
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  ADD PRIMARY KEY (`idCategoria`);
 
 --
 -- Indices de la tabla `contiene`
@@ -137,7 +154,8 @@ ALTER TABLE `pedido`
 -- Indices de la tabla `platillo`
 --
 ALTER TABLE `platillo`
-  ADD PRIMARY KEY (`idPlatillo`);
+  ADD PRIMARY KEY (`idPlatillo`),
+  ADD KEY `idCategoria_idx` (`idCategoria`);
 
 --
 -- Indices de la tabla `ticket`
@@ -148,6 +166,12 @@ ALTER TABLE `ticket`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `empleado`
@@ -202,6 +226,12 @@ ALTER TABLE `mesa`
 ALTER TABLE `pedido`
   ADD CONSTRAINT `folioTicket` FOREIGN KEY (`folioTicket`) REFERENCES `ticket` (`folioTicket`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `idMesa` FOREIGN KEY (`idMesa`) REFERENCES `mesa` (`idMesa`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `platillo`
+--
+ALTER TABLE `platillo`
+  ADD CONSTRAINT `idCategoria` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
