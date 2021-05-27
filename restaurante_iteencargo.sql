@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-05-2021 a las 17:57:08
+-- Tiempo de generación: 27-05-2021 a las 17:35:10
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.9
 
@@ -13,7 +13,6 @@ USE restaurante_iteencargo;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -84,9 +83,10 @@ CREATE TABLE `pedido` (
 CREATE TABLE `platillo` (
   `idPlatillo` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `imagen` blob NOT NULL,
+  `imagen` blob DEFAULT NULL,
   `precio` float NOT NULL,
-  `descripcion` varchar(100) NOT NULL
+  `descripcion` varchar(100) NOT NULL,
+  `tipo` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -144,6 +144,40 @@ ALTER TABLE `platillo`
 --
 ALTER TABLE `ticket`
   ADD PRIMARY KEY (`folioTicket`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `empleado`
+--
+ALTER TABLE `empleado`
+  MODIFY `idEmpleado` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `mesa`
+--
+ALTER TABLE `mesa`
+  MODIFY `idMesa` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `pedido`
+--
+ALTER TABLE `pedido`
+  MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `platillo`
+--
+ALTER TABLE `platillo`
+  MODIFY `idPlatillo` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `ticket`
+--
+ALTER TABLE `ticket`
+  MODIFY `folioTicket` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
