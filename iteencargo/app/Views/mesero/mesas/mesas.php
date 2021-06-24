@@ -9,9 +9,13 @@
 
             <div>
                 <p>
-                    <a href="<?php echo base_url(); ?>/mesero/abrir" class="btn btn-success">
+                    <a href="abrir" class="btn btn-success">
                         <i class="fas fa-plus-circle"></i>
                         Abrir mesa nueva
+                    </a>
+                    <a href="home" class="btn btn-danger">
+                        <i class="fas fa-undo-alt"></i>
+                        Regresar
                     </a>
                 </p>
             </div>
@@ -31,7 +35,7 @@
                                             <?php echo $mesas['idMesa'] ?>
                                         </h1>
                                     </button>
-                                    <button class="btn btn-danger" type="submit" name="btnCerrarMesa" value="<?php echo $mesas['idMesa'] ?>" onclick="return confirm('¿La cuenta es correcta? No podrás cancelar el pago después.');">
+                                    <button class="btn btn-danger" type="submit" name="btnCerrarMesa" value="<?php echo $mesas['idMesa'] ?>" onclick="return confirm('¿Solicitar la cuenta?');">
                                         <h1 class="fas fa-bullhorn"></h1>
                                         Solicitar cuenta
                                     </button>
@@ -40,7 +44,6 @@
                         <?php endforeach; ?>
                     </div>
                 </div>
-
             </div>
         </div>
     </main>

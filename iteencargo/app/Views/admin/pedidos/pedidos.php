@@ -2,7 +2,10 @@
     <main>
         <div class="container-fluid px-4">
             <h3 class="mt-4 mb-4">Listado de pedidos</h3>
-
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="home">Home</a></li>
+                <li class="breadcrumb-item active">Pedidos</li>
+            </ol>
             <div>
                 <p>
                     <a href="<?php echo base_url(); ?>/admin/pedidos/delete_all" class="btn btn-primary">

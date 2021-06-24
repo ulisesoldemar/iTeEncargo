@@ -2,6 +2,10 @@
     <main>
         <div class="container-fluid px-4">
             <h3 class="mt-4">Reporte </h3>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="home">Home</a></li>
+                <li class="breadcrumb-item active">Reporte</li>
+            </ol>
             <div class="mb-4"></div>
 
             <div class="card mb-4">

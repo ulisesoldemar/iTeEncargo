@@ -1,12 +1,11 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
-            <h2 class="mt-4">Mesa: <?= $idMesa; ?></h2>
-            <h2 class="mt-4">Platillos</h2>
-
+            <h2 class="mt-4">Mesa <?= $idMesa; ?></h2>
             <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item"><a href="home">Home</a></li>
-                <li class="breadcrumb-item active">Platillos</li>
+                <li class="breadcrumb-item"><a href="home">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="mesas">Mesas</a></li>
+                <li class="breadcrumb-item active">Mesa <?= $idMesa; ?></li>
             </ol>
 
             <div>

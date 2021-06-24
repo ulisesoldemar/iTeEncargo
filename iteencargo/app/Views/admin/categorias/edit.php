@@ -1,16 +1,17 @@
 <div id="layoutSidenav_content">
 <main>
     <div class="container-fluid px-4">
-        <h3 class="mt-4">Editar categoria</h3>
+        <h3 class="mt-4">Editar categoría</h3>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active">Categorias</li>
+            <li class="breadcrumb-item"><a href="<?= base_url('admin/home')?>">Home</a></li>
+            <li class="breadcrumb-item"><a href="<?= base_url('admin/categorias')?>">Categorías</a></li>
+            <li class="breadcrumb-item active">Editar categoría</li>
         </ol>
         
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
-                Editar categoria
+                Editar categoría
             </div>
             <div class="card-body">
 

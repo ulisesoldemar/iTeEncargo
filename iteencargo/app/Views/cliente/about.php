@@ -8,9 +8,12 @@ Acerca de
 <div class="container">
 	<main>
 		<header class="p-5 text-center bg-light">
-			<h2 class="col-12 text-center tm-section-title">Acerca de RBDuardo</h2>
-			<p class="col-12 text-center">RBDuardo es un software para la gestión y toma de pedidos de comensales. Tu puedes realizar los pedidos que quieras
-				escaneando el codigo QR que se encuentra en una mesa en especifico. A continuación, se muestra nuestro equipo de desarrollo.</p>
+			<h2 class="col-12 text-center tm-section-title">Acerca de iTeEncargo</h2>
+			<p class="col-12 text-center">
+				iTeEncargo es un software para la gestión y toma de pedidos de comensales que funciona a través del navegador.
+				Solamente necesitas conectarte a la misma red WiFi que el administrador.
+				A continuación, se muestra nuestro equipo de desarrollo.
+			</p>
 		</header>
 		<div class="tm-container-inner tm-persons">
 			<div class="row">
@@ -75,8 +78,8 @@ Acerca de
 				<div class="col-12">
 					<div class="tm-feature">
 						<i class="fas fa-4x fa-cocktail tm-feature-icon"></i>
-						<p class="tm-feature-description">Comienza a realizar tus pedidos haciendo clic al siguiente botón</p>
-						<a href="<?php echo base_url('cliente/menu')?>" class="tm-btn tm-btn-primary">Menú</a>
+						<p class="tm-feature-description">Puedes ver nuestro menú presionando el siguiente botón</p>
+						<a href="<?php echo base_url('cliente/menu') ?>" class="tm-btn tm-btn-primary">Menú</a>
 					</div>
 				</div>
 			</div>

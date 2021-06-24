@@ -48,7 +48,7 @@ class Menu extends BaseController
             'tipos' => $this->categoria->findAll(),
             'platillos' => $platillos
         ];
-        echo view('cliente/menu', array_merge($data, $this->total_products()));
+        echo view('cliente/menu', $data);
     }
 
     public function autocompleteData()

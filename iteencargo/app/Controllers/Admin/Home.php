@@ -19,7 +19,7 @@ class Home extends BaseController
 		if ($this->hasSession()) {
 			$mesas = $this->mesa->findAll();
 			echo view('admin/header');
-			echo view('admin/tables', ['mesas' => $mesas]);
+			echo view('admin/home');
 			echo view('admin/footer');
 		} else {
 			echo view('login');

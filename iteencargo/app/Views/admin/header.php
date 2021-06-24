@@ -139,10 +139,6 @@
                                 </a>
                             </nav>
                         </div>
-                        <a class="nav-link" href="home">
-                            <div class="sb-nav-link-icon"><i class="fas fa-qrcode"></i></div>
-                            Códigos QR
-                        </a>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">

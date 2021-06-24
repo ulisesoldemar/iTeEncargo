@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Login - Rbduardo</title>
+    <title>Login - iTeEncargo</title>
     <link href="<?php echo base_url(); ?>/css/dataTables.css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>/css/styles.css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>/css/platillos.css" rel="stylesheet" />
@@ -61,7 +61,7 @@
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; RBDuardo <?php echo date('Y'); ?> </div>
+                        <div class="text-muted">Copyright &copy; iTeEncargo <?php echo date('Y'); ?> </div>
                         <div>
                             <a href="#">Politica de privacidad</a>
                             &middot;

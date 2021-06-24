@@ -3,8 +3,9 @@
     <div class="container-fluid px-4">
         <h3 class="mt-4">Agregar categoria</h3>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active">Categorias</li>
+            <li class="breadcrumb-item"><a href="<?= base_url('admin/home')?>">Home</a></li>
+            <li class="breadcrumb-item"><a href="<?= base_url('admin/categorias')?>">Categorias</a></li>
+            <li class="breadcrumb-item active">Agregar categoria</li>
         </ol>
         
         <div class="card mb-4">

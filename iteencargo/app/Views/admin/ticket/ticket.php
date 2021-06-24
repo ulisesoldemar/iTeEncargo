@@ -2,6 +2,10 @@
     <main>
         <div class="container-fluid px-4">
             <h3 class="mt-4 mb-4">Listado de tickets</h3>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="home">Home</a></li>
+                <li class="breadcrumb-item active">Tickets</li>
+            </ol>
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table me-1"></i>

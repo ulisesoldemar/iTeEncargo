@@ -3,8 +3,9 @@
     <div class="container-fluid px-4">
         <h3 class="mt-4">Agregar Mesero</h3>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active">Meseros</li>
+            <li class="breadcrumb-item"><a href="<?= base_url('admin/home')?>">Home</a></li>
+            <li class="breadcrumb-item"><a href="<?= base_url('admin/meseros')?>">Meseros</a></li>
+            <li class="breadcrumb-item active">Agregar mesero</li>
         </ol>
         
         <div class="card mb-4">
