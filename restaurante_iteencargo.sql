@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 27-05-2021 a las 19:25:05
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.4.9
+-- Servidor: localhost
+-- Tiempo de generación: 24-06-2021 a las 02:33:39
+-- Versión del servidor: 10.4.19-MariaDB
+-- Versión de PHP: 7.4.19
 
 CREATE DATABASE restaurante_iteencargo;
 USE restaurante_iteencargo;
@@ -13,6 +13,7 @@ USE restaurante_iteencargo;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -34,6 +35,16 @@ CREATE TABLE `categoria` (
   `nombre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `categoria`
+--
+
+INSERT INTO `categoria` (`idCategoria`, `nombre`) VALUES
+(1, 'Platillos'),
+(2, 'Entradas'),
+(3, 'Bebidas'),
+(4, 'Postres');
+
 -- --------------------------------------------------------
 
 --
@@ -43,21 +54,8 @@ CREATE TABLE `categoria` (
 CREATE TABLE `contiene` (
   `idPlatillo` int(11) NOT NULL,
   `idPedido` int(11) NOT NULL,
-  `cantPlatillos` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `empleado`
---
-
-CREATE TABLE `empleado` (
-  `idEmpleado` int(11) NOT NULL,
-  `password` varchar(200) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `apellido` varchar(50) NOT NULL,
-  `rol` varchar(30) NOT NULL
+  `cantPlatillos` int(11) NOT NULL,
+  `subtotal` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -68,9 +66,27 @@ CREATE TABLE `empleado` (
 
 CREATE TABLE `mesa` (
   `idMesa` int(11) NOT NULL,
-  `zona` varchar(45) NOT NULL,
-  `idEmpleado` int(11) DEFAULT NULL
+  `zona` varchar(60) NOT NULL,
+  `idPersonal` int(11) DEFAULT NULL,
+  `ocupado` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `mesa`
+--
+
+INSERT INTO `mesa` (`idMesa`, `zona`, `idPersonal`, `ocupado`) VALUES
+(1, 'Juegos', 3, 0),
+(2, 'Juegos', 3, 0),
+(3, 'Juegos', 3, 0),
+(4, 'Balcón', 4, 0),
+(5, 'Balcón', 4, 0),
+(6, 'Balcón', 4, 0),
+(7, 'Entrada', 5, 0),
+(8, 'Entrada', 5, 0),
+(9, 'Entrada', 5, 0),
+(10, 'Baños', 3, 1),
+(11, 'Juegos', 3, 0);
 
 -- --------------------------------------------------------
 
@@ -81,9 +97,37 @@ CREATE TABLE `mesa` (
 CREATE TABLE `pedido` (
   `idPedido` int(11) NOT NULL,
   `hora` time NOT NULL,
+  `totalPedido` float NOT NULL,
   `idMesa` int(11) NOT NULL,
-  `folioTicket` int(11) NOT NULL
+  `comentario` varchar(200) DEFAULT NULL,
+  `completado` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `personal`
+--
+
+CREATE TABLE `personal` (
+  `idPersonal` int(11) NOT NULL,
+  `password` varchar(200) NOT NULL,
+  `nombre` varchar(60) NOT NULL,
+  `apellido` varchar(80) NOT NULL,
+  `rol` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `personal`
+--
+
+INSERT INTO `personal` (`idPersonal`, `password`, `nombre`, `apellido`, `rol`) VALUES
+(1, 'admin', 'admin', 'admin', 'administrador'),
+(2, '312319', 'Ulises', 'Ortega', 'administrador'),
+(3, '12345', 'Juan', 'López', 'mesero'),
+(4, '74185', 'María', 'Mercédez', 'mesero'),
+(5, '78945', 'José', 'Ramírez', 'mesero'),
+(6, '415263', 'Guadalupe', 'Pineda', 'mesero');
 
 -- --------------------------------------------------------
 
@@ -100,6 +144,19 @@ CREATE TABLE `platillo` (
   `idCategoria` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `platillo`
+--
+
+INSERT INTO `platillo` (`idPlatillo`, `nombre`, `imagen`, `precio`, `descripcion`, `idCategoria`) VALUES
+(1, 'Hamburguesa', '../../public/img/hamburguesa.jpg', 45, 'Ricas hamburguesas al carbón', 1),
+(3, 'Jericalla', '../../public/img/jericalla.jpg', 15, 'Jericalla casera', 4),
+(4, 'Pastel', '../../public/img/pastel.jpg', 20, 'Rebana de pastel de 3 leches', 4),
+(5, 'Coca Cola', '../../public/img/coca-cola.jpg', 18, 'Coca Cola de 500 ml', 3),
+(6, 'Tacos de carnitas', '../../public/img/tacarnitas.jpg', 55, 'Orden con 3 tacos de carnitas', 1),
+(7, 'Tostadas de mole', '../../public/img/tostadas-mole.jpg', 15, 'Precio individual', 2),
+(8, 'Tostadas de ceviche de pescado', '../../public/img/tostadas-ceviche.jpg', 25, 'Precio individual', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -108,9 +165,22 @@ CREATE TABLE `platillo` (
 
 CREATE TABLE `ticket` (
   `folioTicket` int(11) NOT NULL,
-  `fecha` datetime NOT NULL,
-  `total` float NOT NULL
+  `fecha` date NOT NULL,
+  `hora` time NOT NULL,
+  `total` float NOT NULL,
+  `idMeza` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ticket_pedido`
+--
+
+CREATE TABLE `ticket_pedido` (
+  `folio` int(11) NOT NULL,
+  `idPedido` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Índices para tablas volcadas
@@ -123,32 +193,24 @@ ALTER TABLE `categoria`
   ADD PRIMARY KEY (`idCategoria`);
 
 --
--- Indices de la tabla `contiene`
---
-ALTER TABLE `contiene`
-  ADD KEY `idPlatillo_idx` (`idPlatillo`),
-  ADD KEY `idPedido_idx` (`idPedido`);
-
---
--- Indices de la tabla `empleado`
---
-ALTER TABLE `empleado`
-  ADD PRIMARY KEY (`idEmpleado`);
-
---
 -- Indices de la tabla `mesa`
 --
 ALTER TABLE `mesa`
   ADD PRIMARY KEY (`idMesa`),
-  ADD KEY `idEmpleado_idx` (`idEmpleado`);
+  ADD KEY `idPersonal_idx` (`idPersonal`);
 
 --
 -- Indices de la tabla `pedido`
 --
 ALTER TABLE `pedido`
   ADD PRIMARY KEY (`idPedido`),
-  ADD KEY `idMesa_idx` (`idMesa`),
-  ADD KEY `folioTicket_idx` (`folioTicket`);
+  ADD KEY `idMesa_idx` (`idMesa`);
+
+--
+-- Indices de la tabla `personal`
+--
+ALTER TABLE `personal`
+  ADD PRIMARY KEY (`idPersonal`);
 
 --
 -- Indices de la tabla `platillo`
@@ -161,7 +223,14 @@ ALTER TABLE `platillo`
 -- Indices de la tabla `ticket`
 --
 ALTER TABLE `ticket`
-  ADD PRIMARY KEY (`folioTicket`);
+  ADD PRIMARY KEY (`folioTicket`),
+  ADD KEY `idMesa_idx` (`idMeza`);
+
+--
+-- Indices de la tabla `ticket_pedido`
+--
+ALTER TABLE `ticket_pedido`
+  ADD PRIMARY KEY (`folio`,`idPedido`) USING BTREE;
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -171,19 +240,13 @@ ALTER TABLE `ticket`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `empleado`
---
-ALTER TABLE `empleado`
-  MODIFY `idEmpleado` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `mesa`
 --
 ALTER TABLE `mesa`
-  MODIFY `idMesa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idMesa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `pedido`
@@ -192,10 +255,16 @@ ALTER TABLE `pedido`
   MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `personal`
+--
+ALTER TABLE `personal`
+  MODIFY `idPersonal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT de la tabla `platillo`
 --
 ALTER TABLE `platillo`
-  MODIFY `idPlatillo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPlatillo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `ticket`
@@ -208,23 +277,15 @@ ALTER TABLE `ticket`
 --
 
 --
--- Filtros para la tabla `contiene`
---
-ALTER TABLE `contiene`
-  ADD CONSTRAINT `idPedido` FOREIGN KEY (`idPedido`) REFERENCES `pedido` (`idPedido`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `idPlatillo` FOREIGN KEY (`idPlatillo`) REFERENCES `platillo` (`idPlatillo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
 -- Filtros para la tabla `mesa`
 --
 ALTER TABLE `mesa`
-  ADD CONSTRAINT `idEmpleado` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `idPersonal` FOREIGN KEY (`idPersonal`) REFERENCES `personal` (`idPersonal`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  ADD CONSTRAINT `folioTicket` FOREIGN KEY (`folioTicket`) REFERENCES `ticket` (`folioTicket`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `idMesa` FOREIGN KEY (`idMesa`) REFERENCES `mesa` (`idMesa`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
@@ -232,6 +293,12 @@ ALTER TABLE `pedido`
 --
 ALTER TABLE `platillo`
   ADD CONSTRAINT `idCategoria` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `ticket`
+--
+ALTER TABLE `ticket`
+  ADD CONSTRAINT `idMeza` FOREIGN KEY (`idMeza`) REFERENCES `mesa` (`idMesa`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
